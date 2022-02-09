@@ -51,6 +51,11 @@ class RoleRepository
         return Role::fromArray($data);
     }
 
+    /**
+     * Récupère la liste des roles
+     *
+     * @return array
+     */
     public function findAll(): array
     {
         $results = $this->pdo->query("SELECT * FROM role");
@@ -60,8 +65,8 @@ class RoleRepository
 
         foreach($rows as $row){
             $category = new Role(
-                id: $row["id"],
-                title: $row["title"]
+                id:     $row["id"],
+                title:  $row["title"]
             );
             $roles[] = $category;
         }

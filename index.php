@@ -15,43 +15,9 @@ $roleRepository = new RoleRepository($pdo);
 $roleAdmin = $roleRepository->find(1);
 $roleUser = $roleRepository->find(2);
 
-$userRepository->save(new User(
-    id: null,
-    lastname: "Moreau",
-    firstname: "Charlie",
-    username: "Charliemo25",
-    password: "password123",
-    age: 25,
-    role: $roleAdmin
-));
+$users = $userRepository->findAll();
 
-$userRepository->save(new User(
-    id: null,
-    lastname: "Toto",
-    firstname: "Toto",
-    username: "toto",
-    password: "toto",
-    age: 18,
-    role: $roleUser
-));
-
-
-// $roleRepository->save(new Role(
-//     id:null,
-//     title: "admin"
-// ));
-
-// $roleRepository->save(new Role(
-//     id:null,
-//     title: "user"
-// ));
-
-// $role = $roleRepository->find(1);
-
-// $roles = $roleRepository->findAll();
-
-// echo $role->getTitle()."\n\n";
-
+var_dump($users);
 // foreach ($roles as $r){
 //     echo $r->getTitle()."\n";
 // }

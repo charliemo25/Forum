@@ -28,8 +28,8 @@ class CategoryRepository
         ");
 
         $query->execute([
-            "title" => $category->getTitle(),
-            "description" => $category->getDescription()
+            "title" =>          $category->getTitle(),
+            "description" =>    $category->getDescription()
         ]);
     }
 
@@ -53,7 +53,7 @@ class CategoryRepository
     }
 
     /**
-     * Retoure la liste des categories
+     * Récupère la liste des categories
      *
      * @return array
      */
@@ -66,9 +66,9 @@ class CategoryRepository
 
         foreach($rows as $row){
             $category = new Category(
-                id: $row["id"],
-                title: $row["title"],
-                description: $row["description"]
+                id:             $row["id"],
+                title:          $row["title"],
+                description:    $row["description"]
             );
             $categories[] = $category;
         }

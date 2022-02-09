@@ -25,7 +25,7 @@ class User {
             username: $data["username"] ?? "",
             password: $data["password"] ?? "",
             age: $data["age"] ?? '',
-            role: Role::fromArray($data["role"]) ?? null
+            role: $data["role"] ?? null
         );
     }
 
