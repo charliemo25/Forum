@@ -14,9 +14,9 @@ class Category {
     public static function fromArray(array $data): self
     {
         return new Category(
-            id: $data['id'] ?? null,
-            title: $data['title'] ?? '',
-            description: $data['description'] ?? ''         
+            id: $data["id"] ?? null,
+            title: $data["title"] ?? '',
+            description: $data["description"] ?? ''         
         );
     }
 

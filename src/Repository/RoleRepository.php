@@ -7,7 +7,6 @@ use App\Entity\Role;
 
 class RoleRepository
 {
-
     public function __construct(
         private PDO $pdo
     )
