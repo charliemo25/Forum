@@ -5,14 +5,19 @@ namespace App\Repository;
 use App\Entity\Category;
 use PDO;
 
-class PDOCategoryRepository
+class CategoryRepository
 {
     public function __construct(
         private PDO $pdo
     )
     {}
 
-
+    /**
+     * Sauvegarde une nouvelle categorie
+     *
+     * @param Category $category
+     * @return void
+     */
     public function save(Category $category)
     {
         $query = $this->pdo->prepare("
@@ -28,6 +33,12 @@ class PDOCategoryRepository
         ]);
     }
 
+    /**
+     * Recherche une categorie à partir de son id
+     *
+     * @param integer $id
+     * @return Category|null
+     */
     public function find(int $id): ?Category
     {
         $query = $this->pdo->prepare("SELECT * FROM category WHERE id=:id");
@@ -41,6 +52,11 @@ class PDOCategoryRepository
         return Category::fromArray($data);
     }
 
+    /**
+     * Retoure la liste des categories
+     *
+     * @return array
+     */
     public function findAll(): array
     {
         $results = $this->pdo->query("SELECT * FROM category");
@@ -50,9 +66,9 @@ class PDOCategoryRepository
 
         foreach($rows as $row){
             $category = new Category(
-                $row["id"],
-                $row["title"],
-                $row["description"]
+                id: $row["id"],
+                title: $row["title"],
+                description: $row["description"]
             );
             $categories[] = $category;
         }
