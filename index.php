@@ -2,5 +2,13 @@
 require 'vendor/autoload.php';
 
 use App\PDO\Connexion;
+use App\Repository\PDOCategoryRepository;
 
-$pdo = new Connexion("forum");
+// Instance 
+$pdo = (new Connexion())->getPdo();
+
+$categoryRepository = new PDOCategoryRepository($pdo);
+
+$category = $categoryRepository->find(1);
+
+echo $category->getDescription();
