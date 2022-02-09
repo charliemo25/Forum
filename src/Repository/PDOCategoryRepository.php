@@ -12,6 +12,22 @@ class PDOCategoryRepository
     )
     {}
 
+
+    public function save(Category $category)
+    {
+        $query = $this->pdo->prepare("
+            INSERT INTO category
+            (title, description)
+            VALUE
+            (:title, :description)
+        ");
+
+        $query->execute([
+            "title" => $category->getTitle(),
+            "description" => $category->getDescription()
+        ]);
+    }
+
     public function find(int $id): ?Category
     {
         $query = $this->pdo->prepare("SELECT * FROM category WHERE id=:id");
@@ -24,4 +40,23 @@ class PDOCategoryRepository
         
         return Category::fromArray($data);
     }
+
+    public function findAll(): array
+    {
+        $results = $this->pdo->query("SELECT * FROM category");
+        $rows = $results->fetchAll();
+
+        $categories = [];
+
+        foreach($rows as $row){
+            $category = new Category(
+                $row["id"],
+                $row["title"],
+                $row["description"]
+            );
+            $categories[] = $category;
+        }
+        return $categories;
+    }
+
 }

@@ -5,18 +5,18 @@ namespace App\Entity;
 class Category {
     
     public function __construct(
-        private int $id,
         private string $title,
-        private string $description
+        private string $description,
+        private ?int $id = null
     )
     {}
 
     public static function fromArray(array $data): self
     {
         return new Category(
-            $data['id'] ?? null,
-            $data['title'] ?? '',
-            $data['description'] ?? ''
+            id: $data['id'] ?? null,
+            title: $data['title'] ?? '',
+            description: $data['description'] ?? ''         
         );
     }
 
