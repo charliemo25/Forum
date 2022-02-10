@@ -13,6 +13,8 @@ $router->get('/', function(){
 
 $router->get('/posts', "Post#index");
 
+$router->get('/posts/:id', "Post#details");
+
 // $router->get('/posts', function(){
 //     echo "Tous les articles";
 // });

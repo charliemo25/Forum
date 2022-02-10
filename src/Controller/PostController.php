@@ -32,4 +32,7 @@ class PostController {
         // echo "Homepage des posts";
     }
     
+    public function details($id){
+        print_r($this->postRepository->find($id));
+    }
 }

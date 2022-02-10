@@ -30,7 +30,6 @@ class Connexion {
 			$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 			$bdd->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 			$this->pdo = $bdd;
-            echo "Vous êtes bien connecter à la base de données $this->db. \n\n";
 
 		}
 		catch (PDOException $e)
