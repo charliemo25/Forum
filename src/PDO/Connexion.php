@@ -16,7 +16,6 @@ class Connexion {
         private string $login = LOGIN, 
         private string $pass= PASSWORD
     ){
-		$this->db = $db;
 		$this->connexion();
 	}
 
