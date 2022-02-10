@@ -1,28 +1,19 @@
 <?php
+
+use App\Router\Router;
+
 require 'vendor/autoload.php';
 
-use App\Entity\Comment;
-use App\Entity\Post;
-use App\Entity\User;
-use App\PDO\Connexion;
-use App\Repository\CategoryRepository;
-use App\Repository\CommentRepository;
-use App\Repository\PostRepository;
-use App\Repository\RoleRepository;
-use App\Repository\UserRepository;
+$router = new Router($_SERVER["REQUEST_URI"]);
 
-// Instance de PDO
-$pdo = (new Connexion())->getPdo();
+$router->get('/posts', function(){
+    echo "Tous les articles";
+});
+$router->get('/posts/:id', function($id){
+    echo "Afficher l'article $id";
+});
+$router->post('/posts/:id', function($id){
+    echo "Poster pour l'article $id";
+});
 
-$roleRepository = new RoleRepository($pdo);
-$categoryRepository = new CategoryRepository($pdo);
-$userRepository = new UserRepository($pdo, $roleRepository);
-$postRepository = new PostRepository($pdo, $userRepository, $categoryRepository);
-$commentRepository = new CommentRepository($pdo, $postRepository, $userRepository);
-
-$firstUser = $userRepository->find(1);
-$secondUser = $userRepository->find(2);
-
-$post = $postRepository->find(1);
-
-var_dump($commentRepository->findAll());
+$router->run();
