@@ -2,6 +2,8 @@
 
 namespace App\Router;
 
+use Exception;
+
 class Router {
     public function __construct(
         private string $url,
@@ -22,8 +24,17 @@ class Router {
     }
 
     public function run(){
-        echo '<pre>';
-        print_r($this->routes);
-        echo '<pre>';
+        if(!isset($this->routes[$_SERVER['REQUEST_METHOD']])){
+            throw new RouterException('REQUEST_METHOD does not exist');
+        }
+
+        /** @var Route $route */
+        foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
+            if($route->match($this->url)){
+                return $route->call();
+            }
+        }
+
+        throw new RouterException('No matching routes');
     }
 }

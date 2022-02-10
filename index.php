@@ -6,6 +6,10 @@ require 'vendor/autoload.php';
 
 $router = new Router($_SERVER["REQUEST_URI"]);
 
+
+$router->get('/', function(){
+    echo "HomePage";
+});
 $router->get('/posts', function(){
     echo "Tous les articles";
 });
