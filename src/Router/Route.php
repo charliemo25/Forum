@@ -15,7 +15,9 @@ class Route {
     }
 
     /**
-     * Vérifie si l'url correspond a une route
+     * 
+     * Permettra de capturer l'url avec les paramètres 
+     * get('/posts/:slug-:id') par exemple
      *
      * @param string $url
      * @return void

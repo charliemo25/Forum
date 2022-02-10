@@ -14,10 +14,15 @@ $router->get('/posts', function(){
     echo "Tous les articles";
 });
 $router->get('/posts/:id', function($id){
-    echo "Afficher l'article $id";
+    ?>
+    <form action="" method="POST">
+        <input type="text" name="name">
+        <button type="submit">Envoyer</button>
+    </form>
+    <?php
 });
 $router->post('/posts/:id', function($id){
-    echo "Poster pour l'article $id";
+    echo "Poster pour l'article $id <pre>".print_r($_POST, true)."</pre>";
 });
 
 $router->run();
