@@ -13,7 +13,7 @@ $router->get('/', function(){
 
 $router->get('/posts', "Post#index");
 
-$router->get('/posts/:id', "Post#details");
+$router->get('/posts/:id', "Post#details")->with('id', '[0-9]+');
 
 // $router->get('/posts', function(){
 //     echo "Tous les articles";
