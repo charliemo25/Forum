@@ -19,13 +19,13 @@ class User {
     public static function fromArray(array $data): self
     {
         return new User(
-            id: $data["id"] ?? null,
-            lastname: $data["lastname"] ?? "",
-            firstname: $data["firstname"] ?? "",
-            username: $data["username"] ?? "",
-            password: $data["password"] ?? "",
-            age: $data["age"] ?? '',
-            role: $data["role"] ?? null
+            id:         $data["id"] ?? null,
+            lastname:   $data["lastname"] ?? "",
+            firstname:  $data["firstname"] ?? "",
+            username:   $data["username"] ?? "",
+            password:   $data["password"] ?? "",
+            age:        $data["age"] ?? '',
+            role:       $data["role"] ?? null
         );
     }
 
@@ -101,7 +101,7 @@ class User {
         return $this;
     }
 
-    public function getRole()
+    public function getRole(): Role
     {
         return $this->role;
     }

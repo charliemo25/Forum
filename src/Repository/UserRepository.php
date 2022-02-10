@@ -8,7 +8,8 @@ use App\Entity\User;
 class UserRepository
 {
     public function __construct(
-        private PDO $pdo
+        private PDO $pdo,
+        private RoleRepository $roleRepository
     )
     {}
 
@@ -39,7 +40,7 @@ class UserRepository
     }
 
     /**
-     * Recherche un utilisateur à partir de son role
+     * Recherche un utilisateur 
      *
      * @param integer $id
      * @return User|null
@@ -55,7 +56,7 @@ class UserRepository
         }
 
         // Récupération du role
-        $role = (new RoleRepository($this->pdo))->find($data["role_id"]);
+        $role = $this->roleRepository->find($data["role_id"]);
         $data["role"] = $role;
 
         return User::fromArray($data);
@@ -64,9 +65,9 @@ class UserRepository
     /**
      * Récupère la liste des utilisateurs
      *
-     * @return void
+     * @return array
      */
-    public function findAll()
+    public function findAll(): array
     {
         $results = $this->pdo->query("SELECT * FROM user");
         $rows = $results->fetchAll();
@@ -75,7 +76,7 @@ class UserRepository
 
         foreach($rows as $row){
             // Récupération du role
-            $role = (new RoleRepository($this->pdo))->find($row["role_id"]);
+            $role = $this->roleRepository->find($row["role_id"]);
 
             $user = new User(
                 id:         $row["id"],

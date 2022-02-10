@@ -1,23 +1,39 @@
 <?php
 require 'vendor/autoload.php';
 
+use App\Entity\Post;
 use App\Entity\User;
 use App\PDO\Connexion;
+use App\Repository\CategoryRepository;
+use App\Repository\PostRepository;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 
 // Instance de PDO
 $pdo = (new Connexion())->getPdo();
 
-$userRepository = new UserRepository($pdo);
 $roleRepository = new RoleRepository($pdo);
+$categoryRepository = new CategoryRepository($pdo);
+$userRepository = new UserRepository($pdo, $roleRepository);
+$postRepository = new PostRepository($pdo, $userRepository, $categoryRepository);
 
-$roleAdmin = $roleRepository->find(1);
-$roleUser = $roleRepository->find(2);
+$firstUser = $userRepository->find(1);
+$secondUser = $userRepository->find(2);
 
-$users = $userRepository->findAll();
+$category = $categoryRepository->find(1);
 
-var_dump($users);
-// foreach ($roles as $r){
-//     echo $r->getTitle()."\n";
-// }
+// $postRepository->save(new Post(
+//     id:         null,
+//     title:      "Le meilleur post",
+//     user:       $firstUser,
+//     category:   $category
+// ));
+
+// $postRepository->save(new Post(
+//     id:         null,
+//     title:      "Le plus nul post",
+//     user:       $secondUser,
+//     category:   $category
+// ));
+
+var_dump($postRepository->findAll());
