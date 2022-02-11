@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
 use App\Repository\RoleRepository;
+use App\Service\AuthService;
 
 class PostController {
 
@@ -30,6 +31,10 @@ class PostController {
     }
 
     public function index(){
+        //Connexion requise pour acceder à cette page
+        // print_r($_COOKIE["user"]);
+        // if(!$_COOKIE["user"]) return header("Location: /connexion");
+        
         // Récuperer la liste des posts
         $posts = $this->postRepository->findAll();
         require_once './src/Template/Post/home.php';

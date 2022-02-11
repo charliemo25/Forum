@@ -13,6 +13,8 @@ $router->get('/', function(){
 
 $router->get('/connexion', "Auth#connexion");
 
+$router->post('/connexion', "Auth#validateAuth");
+
 $router->get('/posts', "Post#index");
 
 $router->get('/posts/:id', "Post#details")->with('id', '[0-9]+');

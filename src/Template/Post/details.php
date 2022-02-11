@@ -1,5 +1,4 @@
 <?php
-
 use App\Entity\Comment;
 use App\Entity\Post;
 include_once './src/Template/header.php';

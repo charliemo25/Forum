@@ -7,6 +7,7 @@ use App\PDO\Connexion;
 use App\Repository\RoleRepository;
 use PDO;
 use App\Repository\UserRepository;
+use App\Service\AuthService;
 
 class AuthController {
 
@@ -22,20 +23,18 @@ class AuthController {
     }
 
     public function connexion(){
+        include_once './src/Template/Auth/connexion.php';
+    }
 
-        $username = "Charliemo25";
-        $password = "password123";
-        $hash = password_hash($password, null);
+    public function validateAuth(){
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+
         /** @var User $user */
         $user = $this->userRepository->findUser($username);
+        AuthService::ValidateUserAuth($user, $password);
 
-        // echo "blabla";
-        echo var_dump(password_verify($password, $hash));
-
-        // L'utilisateur n'existe pas
-        // if(!$user) return header('Location: /');
-        
-        
+        return header('Location: /');
 
     }
 
