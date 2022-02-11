@@ -28,8 +28,8 @@ class PostController {
 
     public function index(){
         // Récuperer la liste des posts
-        print_r($this->postRepository->findAll());
-        // echo "Homepage des posts";
+        $posts = $this->postRepository->findAll();
+        require_once './src/Template/Post/home.php';
     }
     
     public function details($id){

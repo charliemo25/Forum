@@ -11,6 +11,8 @@ $router->get('/', function(){
     echo "HomePage";
 });
 
+$router->get('/connexion', "Auth#connexion");
+
 $router->get('/posts', "Post#index");
 
 $router->get('/posts/:id', "Post#details")->with('id', '[0-9]+');

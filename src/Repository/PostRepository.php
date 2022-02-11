@@ -23,13 +23,14 @@ class PostRepository {
     {
         $query = $this->pdo->prepare("
             INSERT INTO post
-            (title, user_id, category_id)
+            (title, description, user_id, category_id)
             VALUE
-            (:title, :user_id, :category_id)
+            (:title, :description, :user_id, :category_id)
         ");
 
         $query->execute([
             "title" => $post->getTitle(),
+            "description" => $post->getDescription(),
             "user_id" => $post->getUser()->getId(),
             "category_id" => $post->getCategory()->getId()
         ]);
@@ -82,10 +83,11 @@ class PostRepository {
             $category = $this->categoryRepository->find($row["category_id"]);
 
             $post = new Post(
-                id:         $row["id"],
-                title:      $row["title"],
-                user:       $user,
-                category:   $category
+                id:             $row["id"],
+                title:          $row["title"],
+                description:    $row["description"],
+                user:           $user,
+                category:       $category
             );
 
             $posts[] = $post;

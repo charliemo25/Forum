@@ -91,4 +91,27 @@ class UserRepository
         }
         return $users;
     }
+
+    /**
+     * Récupère un utilisateur à partir de son nom d'utilisateur
+     *
+     * @param [type] $username
+     * @return void
+     */
+    public function findUser($username)
+    {
+        $query = $this->pdo->prepare("SELECT * FROM user WHERE username=:username");
+        $query->execute(['username' => $username]);
+        $data = $query->fetch();
+
+        if(!$data) {
+            return null;
+        }
+
+        // Récupération du role
+        $role = $this->roleRepository->find($data["role_id"]);
+        $data["role"] = $role;
+
+        return User::fromArray($data);
+    }
 }

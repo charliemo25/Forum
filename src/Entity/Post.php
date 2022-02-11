@@ -6,6 +6,7 @@ class Post {
     public function __construct(
         private ?int $id,
         private string $title,
+        private string $description,
         private User $user,
         private Category $category
     )
@@ -16,6 +17,7 @@ class Post {
         return new Post(
             id:         $data["id"] ?? null,
             title:      $data["title"] ?? "",
+            description: $data["description"] ?? "",
             user:       $data["user"] ?? null,
             category:   $data["category"] ?? null
         );
@@ -41,6 +43,17 @@ class Post {
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
     }
 
     public function setUser(User $user)
