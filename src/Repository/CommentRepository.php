@@ -96,4 +96,32 @@ class CommentRepository
         }
         return $comments;
     }
+
+    public function findPostComments($id)
+    {
+        $results = $this->pdo->prepare("SELECT * FROM comment where post_id=:post_id");
+        $results->execute(['post_id' => $id]);
+        $rows = $results->fetchAll();
+
+        $comments = [];
+
+        foreach($rows as $row){
+            // Récupération de l'utilisateur
+            $user = $this->userRepository->find($row["user_id"]);
+            
+            // Récupération du post
+            $post = $this->postRepository->find($row["post_id"]);
+
+            $comment = new Comment(
+                id:         $row["id"],
+                title:      $row["title"],
+                message:    $row["message"],
+                user:       $user,
+                post:       $post
+            );
+
+            $comments[] = $comment;
+        }
+        return $comments;
+    }
 }

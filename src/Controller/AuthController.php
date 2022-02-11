@@ -23,7 +23,7 @@ class AuthController {
 
     public function connexion(){
 
-        $username = "charliemo25";
+        $username = "Charliemo25";
         $password = "password123";
         $hash = password_hash($password, null);
         /** @var User $user */

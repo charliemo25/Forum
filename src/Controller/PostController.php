@@ -7,6 +7,7 @@ use App\PDO\Connexion;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\CommentRepository;
 use App\Repository\RoleRepository;
 
 class PostController {
@@ -16,6 +17,7 @@ class PostController {
     private RoleRepository $roleRepository;
     private UserRepository $userRepository;
     private CategoryRepository $categoryRepository;
+    private CommentRepository $commentRepository;
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class PostController {
         $this->userRepository = new UserRepository($this->pdo, $this->roleRepository);
         $this->categoryRepository = new CategoryRepository($this->pdo);
         $this->postRepository = new PostRepository($this->pdo, $this->userRepository, $this->categoryRepository);
+        $this->commentRepository = new CommentRepository($this->pdo, $this->postRepository, $this->userRepository);
     }
 
     public function index(){
@@ -33,6 +36,8 @@ class PostController {
     }
     
     public function details($id){
-        print_r($this->postRepository->find($id));
+        $post = $this->postRepository->find($id);
+        $comments = $this->commentRepository->findPostComments($post->getId());
+        require_once './src/Template/Post/details.php';
     }
 }

@@ -93,12 +93,12 @@ class UserRepository
     }
 
     /**
-     * Récupère un utilisateur à partir de son nom d'utilisateur
+     * Récupère un utilisateur à partir de son username
      *
-     * @param [type] $username
+     * @param string $username
      * @return void
      */
-    public function findUser($username)
+    public function findUser(string $username)
     {
         $query = $this->pdo->prepare("SELECT * FROM user WHERE username=:username");
         $query->execute(['username' => $username]);
